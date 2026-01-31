@@ -77,13 +77,11 @@ class RationalSystemSolver:
         for i in range(n):
             for j in range(n+1):
                 self._finite_system[i, j] = self._to_finite_field(self.system[i, j])
+        print(self._finite_system)
 
         # Solve the system of equations and convert back to rational expression
-        print(self._finite_system)
         gf_solutions = np.linalg.solve(self._finite_system[:, :-1],
                                        self._finite_system[:, -1])
-        print(gf_solutions)
-        print(self._finite_system[:, :-1] @ gf_solutions)
         solutions = np.zeros(n, dtype=object)
         for i in range(n):
             num, den = self._rational_reconstruction(gf_solutions[i])
@@ -120,8 +118,6 @@ class RationalSystemSolver:
             s_prev, s_curr = s_curr, s_prev - q * s_curr
             t_prev, t_curr = t_curr, t_prev - q * t_curr
 
-        print(t_curr, r_curr, s_curr, N)
-
         # Check if valid
         if abs(t_curr) <= N and t_curr != 0:
             # Ensure positive denominator
@@ -137,11 +133,11 @@ class RationalSystemSolver:
 
 def main():
     system = np.array([
-        [Fraction(1, 2), Fraction(2, 3), Fraction(4, 5)],
+        [Fraction(1, 2), Fraction(1, 1), Fraction(1, 2)],
         [Fraction(1, 4), Fraction(-3, 4), Fraction(-1, 2)]
     ])
 
-    solver = RationalSystemSolver(13003)
+    solver = RationalSystemSolver(47)
     solver.setup(system).solve()
 
 
