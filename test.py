@@ -20,6 +20,26 @@ def ibp_matrix(d):
     #                   [       0,         0,        0,   0,    -1,   0,       0, 1-D/2,    0],
     #                  ])
 
+def lhs_sample(n_samples, bounds):
+    dim = len(bounds)
+    result = np.zeros((n_samples, dim))
+
+    rng = np.random.default_rng()
+
+    for i, (low, high) in enumerate(bounds):
+        perm = rng.permutation(n_samples)
+        result[:, i] = (perm + rng.random(n_samples)) / n_samples
+        result[:, i] = low + result[:, i] * (high - low)
+
+    return result
+
+def is_good_point(d):
+    A = ibp_matrix(d)
+    s = np.linalg.svd(A, compute_uv=False)
+
+    cond = s.max() / s.min()
+    return cond < 1e6
+
 def reduction_map(A, masters, eps=1e-10):
     """
     Compute least-norm reduction:
@@ -57,7 +77,15 @@ def exact3(d, M1, M2):
 
 masters = [3, 4]  # M1, M2
 hard_index = 0
-ds = np.linspace(2.8, 5.3, 5000)
+samples = lhs_sample(1000, [(2.5, 6)])
+good_samples = []
+for d in samples[:, 0]:
+    if is_good_point(d):
+        good_samples.append((d))
+
+ds = np.array(good_samples)
+
+print(f"Using {len(ds)} samples")
 
 X = []
 y_c1 = []  # coefficient of M1
