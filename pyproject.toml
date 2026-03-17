@@ -9,4 +9,10 @@ dependencies = [
     "numpy>=2.0,<2.3",
     "numba",
     "matplotlib",
+    "pysr",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
 ]
