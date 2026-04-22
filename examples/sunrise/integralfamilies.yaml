@@ -1,0 +1,17 @@
+# 2-loop sunrise self-energy / vacuum-style family.
+#
+#   D1 = k1^2 - m2
+#   D2 = k2^2 - m2
+#   D3 = (k1 - k2)^2 - M2
+#
+# ``m2`` and ``M2`` are squared masses (kept as separate symbols so the
+# unequal-mass case is covered; setting them equal recovers the
+# equal-mass sunrise).
+integralfamilies:
+  - name: "sunrise"
+    loop_momenta: [k1, k2]
+    top_level_sectors: [b111]
+    propagators:
+      - ["k1",      "m2"]
+      - ["k2",      "m2"]
+      - ["k1 - k2", "M2"]

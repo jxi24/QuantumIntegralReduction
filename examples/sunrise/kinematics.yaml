@@ -1,0 +1,9 @@
+# No external momenta (vacuum-like); the only parameters are the two
+# squared internal masses ``m2`` and ``M2``.
+kinematics:
+  incoming_momenta: []
+  outgoing_momenta: []
+  kinematic_invariants:
+    - [m2, 2]
+    - [M2, 2]
+  scalarproduct_rules: []

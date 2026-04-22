@@ -1,0 +1,20 @@
+# 1-loop four-point "box" family with two internal masses.
+#
+#   D1 = k^2              - m12
+#   D2 = (k + p1)^2       - m12
+#   D3 = (k + p1 + p2)^2  - m22
+#   D4 = (k + p1 + p2 + p3)^2 - m22
+#
+# Externals p1, p2, p3 are independent; p4 is fixed by momentum
+# conservation (see ``kinematics.yaml``). With all external lines on
+# shell massless, the only independent invariants are the two Mandelstams
+# (s, t) and the two internal-line masses (m12, m22).
+integralfamilies:
+  - name: "box"
+    loop_momenta: [k]
+    top_level_sectors: [b1111]
+    propagators:
+      - ["k",                     "m12"]
+      - ["k + p1",                "m12"]
+      - ["k + p1 + p2",           "m22"]
+      - ["k + p1 + p2 + p3",      "m22"]
