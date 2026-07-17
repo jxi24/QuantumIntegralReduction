@@ -281,7 +281,7 @@ def make_model(niterations=200, maxsize=25):
         binary_operators=["+", "-", "*", "/"],
         unary_operators=[],
         maxsize=maxsize,
-        model_selection='best',
+        model_selection='score',
         verbosity=1,
     )
 
